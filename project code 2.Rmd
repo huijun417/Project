@@ -1,0 +1,35 @@
+---
+title: "code"
+author: "Huijun Hao"
+date: "6/3/2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(readxl)
+model<- read_excel("C:/Users/zhang/Desktop/individual project/gender.xlsx")
+model
+gender=lm(TCB~TSB*SEX,data=model)
+summary(gender)
+plot(gender)
+
+```
+
+```{r}
+#Draw scatter plot
+car::scatterplot(TCB~TSB*SEX,data=model)
+#Normality test
+shapiro.test(gender$residuals)
+#Independent test
+TSA::runs(gender$residuals)
+#Constant variance test
+car::ncvTest(gender)
+
+```
+
